@@ -199,7 +199,171 @@ class Home extends Component{
     }
 }
 
+class HomeItem extends Component{
+    constructor(){
+      super();
+      this.state = {
+        isLiked : false,
+        comment:'',
+        likes: 3
+      }
+    }
 
+
+    //Change handler for comments
+    commentChangeHandler = (e) => {
+        this.setState({
+          comment:e.target.value,
+        });
+        this.props.commentChangeHandler(e);
+    }
+
+    
+    //Adding comments in comment section
+    onAddCommentClicked = (id) => {
+
+    
+        if (this.state.comment === "" || typeof this.state.comment === undefined) {
+          return;
+        }
+        this.setState({
+          comment:""
+        });
+        this.props.onAddCommentClicked(id);
+    }
+
+
+    //Like counter and keeping track of current status
+    onLikeClicked = (id) => {
+    
+        //Update like count
+        if (!this.state.isLiked) {
+          this.setState({
+            likes: this.state.likes + 1
+          })
+        } else {
+          this.setState({
+            likes: this.state.likes - 1
+          })
+        }
+
+        //Update like status for style change
+        if (this.state.isLiked) {
+          this.setState({
+            isLiked:false
+          });
+        }else {
+          this.setState({
+            isLiked:true
+          });
+        }
+    }
+
+    render(){
+        const {classes, item, userInfo, comments} = this.props;
+    
+        // Calculate time of image and share latest time with image
+        let createdTime = new Date(item.timestamp);
+        let dd = createdTime.getDate();
+        let mm = createdTime.getMonth() + 1;
+        let yyyy = createdTime.getFullYear();    
+        let ss = createdTime.getSeconds();
+        let MM = createdTime.getMinutes();
+        let HH = createdTime.getHours();
+    
+        let time = dd+"/"+mm+"/"+yyyy+" "+HH+":"+MM+":"+ss;
+
+        //get caption of each image from API endpoint
+        let captionText =""
+        let likeCount = this.state.likes;
+        userInfo.forEach(data => {
+            if (data.id === item.id) {
+                captionText = data.caption;
+              }
+        });
+
+        if(captionText === '') {
+            return(<div className="home-item-main-container"></div>);
+        }
+        else{
+            return(
+                <div className="home-item-main-container">
+                    <Card className={classes.card}>
+                    <CardHeader 
+                        avatar={
+                            <Avatar alt="User Profile Pic" src="profile.png" className={classes.avatar}/>
+                        }
+                        title={item.username}
+                        subheader={time}
+                    />
+
+                    { /* Display media endpoint item.media_url query */ }
+                    <CardContent>
+                        <CardMedia
+                            className={classes.media}
+                            image={item.media_url}
+                            title=""
+                        />
+                        <div className={classes.hr}>
+                        <Typography component="p">
+
+                            { /*  Fetching image caption as per logic function */ }
+                            {captionText}
+                        </Typography>
+                        <Typography style={{color:'#4dabf5'}} component="p" >
+                            { /*  Hard coding of the hashtags */ }
+                            #Nature #Earth #Peace
+                        </Typography>
+                        </div>
+                    </CardContent>
+
+                    <CardActions>
+                        <IconButton aria-label="Add to favorites" onClick={this.onLikeClicked.bind(this,item.id)}>
+                            {this.state.isLiked && <FavoriteIconFill style={{color:'#F44336'}}/>}
+                            {!this.state.isLiked && <FavoriteIconBorder/>}
+                        </IconButton>
+                    
+                        <Typography component="p">
+                            {/*Display likes using like logic function in each post*/}
+                            {likeCount} likes
+                        </Typography>  
+                    </CardActions>
+
+                    <CardContent>
+                        {comments.hasOwnProperty(item.id) && comments[item.id].map((comment, index)=>{
+                        return(
+                            <div key={index} className="row">
+                                <Typography component="p" style={{fontWeight:'bold'}}>
+                                {sessionStorage.getItem('username')}:
+                                </Typography>
+                                <Typography component="p" >
+                                {comment}
+                                </Typography>
+                            </div>
+                        )
+                    })}
+
+                        <div className={classes.formControl}>
+                            <FormControl style={{flexGrow:1}}>
+                                <InputLabel htmlFor="comment">Add a comment</InputLabel>
+                                <Input id="comment" value={this.state.comment} onChange={this.commentChangeHandler}/>
+                            </FormControl>
+                            <FormControl class="commentAdd">
+                                <Button onClick={this.onAddCommentClicked.bind(this,item.id)}
+                                        variant="contained" color="primary">
+                                ADD
+                                </Button>
+                            </FormControl>
+                        </div>
+                    </CardContent>
+
+                    </Card>
+                </div>       
+            );
+        }
+    }
+
+}
 
 
 
