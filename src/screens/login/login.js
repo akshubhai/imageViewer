@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Header from '../../common/header/Header';
 import './Login.css'
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
     card: {
@@ -17,14 +20,14 @@ const styles = {
     }
 };
 
-class login extends Component{
+class Login extends Component{
     
     //Write the constructor to define initial state of login object
     constructor(){
         super();
         this.state = {
-            userName : "",
-            userNameRequired: "dispNone",
+            username : "",
+            usernameRequired: "dispNone",
             password: "",
             passwordRequired: "dispNone",
             incorrectUsernamePassword: "dispNone",
@@ -44,23 +47,23 @@ class login extends Component{
     }
 
     //Input userName change handler
-    userNameChangeHandler = (e) =>{
-        this.setState({userName: e.target.value});
+    usernameChangeHandler = (e) =>{
+        this.setState({username: e.target.value});
     }
 
     loginClickHandler = () => {
         this.setState({ incorrectUsernamePassword: "dispNone" });
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
-        this.state.userName === "" ? this.setState({ userNameRequired: "dispBlock" }) : this.setState({ userNameRequired: "dispNone" });       
+        this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });       
 
-        if (this.state.userName === "" || this.state.password === "") { return }
+        if (this.state.username === "" || this.state.password === "") { return }
 
         // hard coding user name and password applicable 
 
-        if (this.state.password === "Pratham@2020" && this.state.userName === "testingupgrad2021" ) {
-            sessionStorage.setItem('userName','admin');
+        if (this.state.password === "Pratham@2020" && this.state.username === "testingupgrad2021" ) {
+            sessionStorage.setItem('username','admin');
             sessionStorage.setItem('access-token', 'set your access token here');
-            this.setState({ loggedIn: true });
+            this.setState({ logInStatus: true });
 
             // Once login is validated and successful, navigation to Home UI page is performed
             this.goToHome();
@@ -69,9 +72,32 @@ class login extends Component{
         }
     }
 
-
+    render(){
+        return(
+            <div className="master-container">
+                <Header screen ={"Login"}/>
+                <Card style={styles.card}>
+                    <CardContent>
+                    <Typography style={styles.title}> LOGIN </Typography><br />
+                    <FormControl required style={{width: '100%'}}>
+                        <InputLabel htmlFor="username"> Username </InputLabel>
+                        <Input id="username" type="text" username={this.state.username} onChange={this.usernameChangeHandler} />
+                        <FormHelperText className={this.state.usernameRequired}><span className="red">required</span></FormHelperText>
+                    </FormControl><br /><br />
+                    <FormControl required style={{width: '100%'}}>
+                            <InputLabel htmlFor="password"> Password </InputLabel>
+                            <Input id="password" type="password" onChange={this.passwordChangeHandler} />
+                            <FormHelperText className={this.state.passwordRequired}><span className="red">required</span></FormHelperText>
+                    </FormControl><br /><br />
+                    <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
+                    <Button color="primary" variant="contained" onClick={this.loginClickHandler}> LOGIN </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
 
 
 }
 
-export default login;
+export default Login;
