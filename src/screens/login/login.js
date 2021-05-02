@@ -48,7 +48,30 @@ class login extends Component{
         this.setState({userName: e.target.value});
     }
 
-    
+    loginClickHandler = () => {
+        this.setState({ incorrectUsernamePassword: "dispNone" });
+        this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+        this.state.userName === "" ? this.setState({ userNameRequired: "dispBlock" }) : this.setState({ userNameRequired: "dispNone" });       
+
+        if (this.state.userName === "" || this.state.password === "") { return }
+
+        // hard coding user name and password applicable 
+
+        if (this.state.password === "Pratham@2020" && this.state.userName === "testingupgrad2021" ) {
+            sessionStorage.setItem('userName','admin');
+            sessionStorage.setItem('access-token', 'set your access token here');
+            this.setState({ loggedIn: true });
+
+            // Once login is validated and successful, navigation to Home UI page is performed
+            this.goToHome();
+        } else {
+            this.setState({ incorrectUsernamePassword: "dispBlock" });
+        }
+    }
+
+
 
 
 }
+
+export default login;
