@@ -109,8 +109,6 @@ class Login extends Component{
                             <FormHelperText className={this.state.passwordRequired}><span className="red">required</span></FormHelperText>
                        <br /><br />
 
-                        <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
-                        <Button variant="contained" color="primary" onClick={this.loginClickHandler}> LOGIN </Button>
 
 
                     <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
