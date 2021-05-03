@@ -44,9 +44,10 @@ class Login extends Component {
 
     loginClickHandler = () => {
 
-        let mockUsernameInstagram = "user1";
-        let mockPasswordInstagram = "user1";
-        let accessToken = "set your access token here";
+        let mockUsernameInstagram = "testingupgrad2021";
+        let mockPasswordInstagram = "hello1234";
+        //let accessToken = "set your access token here";
+        let accessToken = "IGQVJWdHBXZAm1mNTlteWVGSGpqZAkJDckZAEdWV6ZA2swM0MteWV2QU9YWDA1eUUtQkE2d2NJZAEhINmxWQWx6TEVkX1JLeGp6WlE2TTJTbEZAyMzFNOFMza2Rld0kydkxyZAkJqRXc1V0QwODFkczc5a2xkRWV6dTRsRjNQQms4";
 
         if (this.state.username === mockUsernameInstagram && this.state.password === mockPasswordInstagram) {
             window.sessionStorage.setItem("access-token", accessToken);

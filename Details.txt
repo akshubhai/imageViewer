@@ -1,0 +1,36 @@
+InstaAppID: 968783473955072
+facebook app name: myApp
+
+username: testingupgrad2021
+password: hello1234
+
+
+Instagram App ID
+968783473955072
+
+Instagram App Secret
+e722f7aa0f423965da5a4268bacc9d82
+
+ulr: https://www.upgrad.com/
+
+
+Authenticate user:
+https://api.instagram.com/oauth/authorize?client_id=968783473955072&redirect_uri=https://www.upgrad.com/&scope=user_profile,user_media&response_type=code
+
+
+code: AQCq-l0VPQIbGhDwTZd61Jeb8VfKML73Man_ErrAfAqYP7x_UU8Tn3GE7x9PMyduXQBZ9ZGpoU7cdjV6FPYSek7A7brD3-nfeYgJrE2tNWB6t7ENRxh1IhqV-Wz-LACNYGWzjfbtKp-CiXj6-9nHJXfi0vslyDX1_nArJHs0BpOEnUfmVakJJMvjxpgBv1Ye8V1bCUjLSxJqa-OIo4npV6AIxnCvyYM_NZMCOVSLshSRQQ#_
+
+
+link: https://www.upgrad.com/?code=AQCq-l0VPQIbGhDwTZd61Jeb8VfKML73Man_ErrAfAqYP7x_UU8Tn3GE7x9PMyduXQBZ9ZGpoU7cdjV6FPYSek7A7brD3-nfeYgJrE2tNWB6t7ENRxh1IhqV-Wz-LACNYGWzjfbtKp-CiXj6-9nHJXfi0vslyDX1_nArJHs0BpOEnUfmVakJJMvjxpgBv1Ye8V1bCUjLSxJqa-OIo4npV6AIxnCvyYM_NZMCOVSLshSRQQ#_
+
+curl -X POST https://api.instagram.com/oauth/access_token -F client_id=968783473955072 -F client_secret=e722f7aa0f423965da5a4268bacc9d82 -F grant_type=authorization_code -F redirect_uri=https://www.upgrad.com/ -F code=AQCq-l0VPQIbGhDwTZd61Jeb8VfKML73Man_ErrAfAqYP7x_UU8Tn3GE7x9PMyduXQBZ9ZGpoU7cdjV6FPYSek7A7brD3-nfeYgJrE2tNWB6t7ENRxh1IhqV-Wz-LACNYGWzjfbtKp-CiXj6-9nHJXfi0vslyDX1_nArJHs0BpOEnUfmVakJJMvjxpgBv1Ye8V1bCUjLSxJqa-OIo4npV6AIxnCvyYM_NZMCOVSLshSRQQ#_
+
+{"access_token": "IGQVJWdHBXZAm1mNTlteWVGSGpqZAkJDckZAEdWV6ZA2swM0MteWV2QU9YWDA1eUUtQkE2d2NJZAEhINmxWQWx6TEVkX1JLeGp6WlE2TTJTbEZAyMzFNOFMza2Rld0kydkxyZAkJqRXc1V0QwODFkczc5a2xkRWV6dTRsRjNQQms4", 
+"user_id": 17841447930972246}
+
+
+curl -X GET \
+  'https://graph.instagram.com/{user-id}?fields=id,username&access_token={access-token}'
+  
+  
+  curl -X GET 'https://graph.instagram.com/17841447930972246?fields=id,username&access_token=IGQVJWdHBXZAm1mNTlteWVGSGpqZAkJDckZAEdWV6ZA2swM0MteWV2QU9YWDA1eUUtQkE2d2NJZAEhINmxWQWx6TEVkX1JLeGp6WlE2TTJTbEZAyMzFNOFMza2Rld0kydkxyZAkJqRXc1V0QwODFkczc5a2xkRWV6dTRsRjNQQms4'
