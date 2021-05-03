@@ -16,8 +16,8 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListitem from '@material-ui/core/ImageListitem';
 import {constants} from '../../common/utils'
 
 const styles =  theme => ({
@@ -73,7 +73,8 @@ class Home extends Component{
       comments:{},
       currrentComment:"",
       userInfo:[],
-      likes: 0
+      likes: 0,
+      profile_picture : 'profile,png'
     }
   }
 
@@ -86,15 +87,15 @@ class Home extends Component{
     return(
       <div>
         <Header
-          userProfileUrl="profile.png"
+          userProfileUrl={this.state.profile_picture}
           screen={"Home"}
           searchHandler={this.onSearchEntered}
           handleLogout={this.logout}
           handleAccount={this.navigateToAccount}/>
         <div className={classes.grid}>
-          <GridList className={classes.gridList} cellHeight={'auto'}>
+          <ImageList className={classes.gridList} rowHeight={'auto'}>
             {this.state.filteredData.map((item, index) => (
-              <GridListTile key={item.id}>
+              <ImageListItem key={item.id}>
                 <HomeItem
                   classes={classes}
                   item={item}
@@ -103,9 +104,9 @@ class Home extends Component{
                   onAddCommentClicked={this.addCommentClickHandler}
                   commentChangeHandler={this.commentChangeHandler}
                   comments={this.state.comments}/>
-              </GridListTile>
+              </ImageListItem>
             ))}
-          </GridList>
+          </ImageList>
         </div>
       </div>
     );
@@ -206,8 +207,7 @@ class HomeItem extends Component{
   render(){
     const {classes, item, userInfo, comments} = this.props;
 
-    // Logic to calculate the time of instagram post and display time format of the posted image
-
+    // Time computation logic
     let createdTime = new Date(item.timestamp);
     let yyyy = createdTime.getFullYear();
     let mm = createdTime.getMonth() + 1;
@@ -219,7 +219,7 @@ class HomeItem extends Component{
 
     let time = dd+"/"+mm+"/"+yyyy+" "+HH+":"+MM+":"+ss;
 
-    // Fetching the caption of the image via the API endpoint result
+    // fetch image caption from api endpoint
     let captionText = '';
     let likeCount = this.state.likes;
     userInfo.forEach(data => {
@@ -236,7 +236,7 @@ class HomeItem extends Component{
             <Card className={classes.card}>
               <CardHeader
                   avatar={
-                    <Avatar alt="User Profile Pic" src="profile.png" className={classes.avatar}/>
+                    <Avatar alt="User Profile Pic" src='profile.png' className={classes.avatar}/>
                   }
                   title={item.username}
 					
@@ -257,7 +257,7 @@ class HomeItem extends Component{
                   </Typography>
                   <Typography style={{color:'#4dabf5'}} component="p" >
                     { /*  Hard coding of the hashtags */ }
-                    #Nature #Earth #Peace
+                    #Love #Live #Learn
                   </Typography>
                 </div>
               </CardContent>

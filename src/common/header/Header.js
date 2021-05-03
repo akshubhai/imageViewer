@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import { Link } from 'react-router-dom';
-import { Avatar } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
@@ -25,7 +25,7 @@ const styles = theme => ({
     width: '310px',
   },
   searchIcon: {
-    width: theme.spacing.unit * 4,
+    width: theme.spacing.unit * 1,
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -38,15 +38,17 @@ const styles = theme => ({
     transition: theme.transitions.create('width'),
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit*3,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 130,
+      width: 500,
       '&:focus': {
         width: 210
       }
-    }
+    },
+    align: 'right',
+    float : 'right'
   },
   avatar: {
     width: 60,
@@ -68,7 +70,8 @@ class Header extends Component{
   constructor(props){
     super(props);
     this.state = {
-      anchorEl: null
+      anchorEl: null,
+      profile_picture : 'profile.png'
     };
   }
 
@@ -113,7 +116,7 @@ class Header extends Component{
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
-                <InputBase onChange={(e)=>{this.props.searchHandler(e.target.value)}} placeholder="Search…" classes={{
+                <InputBase onChange={(e)=>{this.props.searchHandler(e.target.value)}} placeholder="     Search…" classes={{
                     input: classes.inputInput
                   }}/>
               </div>
@@ -123,7 +126,7 @@ class Header extends Component{
             {(screen === "Home" || screen === "Profile")  &&
               <div>
                 <IconButton onClick={this.handleClick}>
-                  <Avatar alt="Profile Pic" src="profile.png" className={classes.avatar} style={{border: "2px solid #fff"}}/>
+                  <Avatar alt="Profile Pic" src={this.state.profile_picture} className={classes.avatar} style={{border: "2px solid #fff"}}/>
                 </IconButton>
                 <Popover
                   id="simple-menu"
