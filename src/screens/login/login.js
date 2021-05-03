@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import { makeStyles } from '@material-ui/core/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = {
     card: {
@@ -23,6 +26,11 @@ const styles = {
         fontSize: 24
     }
 };
+
+const useStyles = makeStyles((theme) => ({
+    
+  }));
+
 
 class Login extends Component{
     
@@ -39,8 +47,6 @@ class Login extends Component{
             passfieldActivate: true
 
         }
-        this.activatePasswordField = this.activatePasswordField.bind(this);
-        this.disableFocus = this.disableFocus.bind(this);
 
     }
 
@@ -84,24 +90,27 @@ class Login extends Component{
 
     
     render(){
+        const{classes} = this.props;
         return(
             <div className="master-container">
                 <Header screen ={"Login"}/>
                 <Card style={styles.card}>
                     <CardContent>
-                    <Typography style={styles.title}> LOGIN </Typography><br />
+                        <Typography style={styles.title}> LOGIN </Typography><br />
 
-                    <FormControl required style={{width: '100%'}}/>
+                        <FormControl required style={{width: '100%'}}/>
                             <InputLabel htmlFor="username"> Username </InputLabel>
                             <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameChangeHandler} />
                             <FormHelperText className={this.state.usernameRequired}><span className="red">required</span></FormHelperText>
-                        <br /><br />
-
+                       <br /><br />
                         <FormControl required style={{width: '100%'}}/>
                             <InputLabel htmlFor="password"> Password </InputLabel>
                             <Input id="password" type="password" onChange={this.inputPasswordChangeHandler} />
                             <FormHelperText className={this.state.passwordRequired}><span className="red">required</span></FormHelperText>
-                        <br /><br />
+                       <br /><br />
+
+                        <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
+                        <Button variant="contained" color="primary" onClick={this.loginClickHandler}> LOGIN </Button>
 
 
                     <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
