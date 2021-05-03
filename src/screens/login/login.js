@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FormControl, FormGroup, ControlLabel, HelpBlock, Checkbox, Radio, Button} from 'react-bootstrap';
 import Header from '../../common/header/Header';
 import './Login.css'
 
@@ -13,7 +14,7 @@ const styles = {
     card: {
         padding: '16px',
         position: 'relative',
-        top: '95px',
+        top: '90px',
         left: '50%',
         width: '350px',
         transform: 'translateX(-60%)',
@@ -34,9 +35,13 @@ class Login extends Component{
             password: "",
             passwordRequired: "dispNone",
             incorrectUsernamePassword: "dispNone",
-            logInStatus : sessionStorage.getItem('access-token') == null ? false:true
+            logInStatus : sessionStorage.getItem('access-token') == null ? false:true,
+            passfieldActivate: true
 
         }
+        this.activatePasswordField = this.activatePasswordField.bind(this);
+        this.disableFocus = this.disableFocus.bind(this);
+
     }
 
     //redirect to home page
@@ -47,6 +52,8 @@ class Login extends Component{
     //Input password change handler
     passwordChangeHandler = (e) =>{
         this.setState({password: e.target.value});
+        this.activateField(e);
+        e.preventDefault();
     }
 
     //Input userName change handler
@@ -75,6 +82,7 @@ class Login extends Component{
         }
     }
 
+    
     render(){
         return(
             <div className="master-container">
@@ -82,18 +90,22 @@ class Login extends Component{
                 <Card style={styles.card}>
                     <CardContent>
                     <Typography style={styles.title}> LOGIN </Typography><br />
-                    <FormControl required style={{width: '100%'}}>
-                        <InputLabel htmlFor="username"> Username </InputLabel>
-                        <Input id="username" type="text" username={this.state.username} onChange={this.usernameChangeHandler} />
-                        <FormHelperText className={this.state.usernameRequired}><span className="red">required</span></FormHelperText>
-                    </FormControl><br /><br />
-                    <FormControl required style={{width: '100%'}}>
+
+                    <FormControl required style={{width: '100%'}}/>
+                            <InputLabel htmlFor="username"> Username </InputLabel>
+                            <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameChangeHandler} />
+                            <FormHelperText className={this.state.usernameRequired}><span className="red">required</span></FormHelperText>
+                        <br /><br />
+
+                        <FormControl required style={{width: '100%'}}/>
                             <InputLabel htmlFor="password"> Password </InputLabel>
-                            <Input id="password" type="password" onChange={this.passwordChangeHandler} />
+                            <Input id="password" type="password" onChange={this.inputPasswordChangeHandler} />
                             <FormHelperText className={this.state.passwordRequired}><span className="red">required</span></FormHelperText>
-                    </FormControl><br /><br />
+                        <br /><br />
+
+
                     <div className={this.state.incorrectUsernamePassword}><span className="red"> Incorrect username and/or password </span></div><br />
-                    <Button color="primary" variant="contained" onClick={this.loginClickHandler}> LOGIN </Button>
+                    <Button color="primary" variant="contained" onClick={this.loginClickHandler} >LOGIN</Button>
                     </CardContent>
                 </Card>
             </div>

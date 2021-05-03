@@ -9,6 +9,17 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import {withStyles} from '@material-ui/core/styles';
+import FavoriteIconBorder from '@material-ui/icons/FavoriteBorder';
+import FavoriteIconFill from '@material-ui/icons/Favorite';
+import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
 
 const styles =  theme => ({
     card: {
@@ -35,7 +46,7 @@ const styles =  theme => ({
       marginTop:'12px',
       borderTop:'3px solid #f2f2f2'
     },
-    gridList:{
+    imageList:{
       width: 1150,
       height: 'auto',
       overflowY: 'auto',
@@ -179,9 +190,9 @@ class Home extends Component{
             handleAccount={this.navigateToAccount}/>
 
             <div className={classes.grid}>
-                <GridList className={classes.gridList} cellHeight={'auto'}>
+                <ImageList className={classes.imageList} rowHeight={'auto'}>
                 {this.state.filteredData.map((item, index) => (
-                    <GridListTile key={item.id}>
+                    <ImageListItem key={item.id}>
                         <HomeItem
                         classes={classes}
                         item={item}
@@ -190,9 +201,9 @@ class Home extends Component{
                         onAddCommentClicked={this.addCommentClickHandler}
                         commentChangeHandler={this.commentChangeHandler}
                         comments={this.state.comments}/>
-                    </GridListTile>
+                    </ImageListItem>
                 ))}
-                </GridList>
+                </ImageList>
             </div>
         </div>
         );
